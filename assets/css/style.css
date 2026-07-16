@@ -207,20 +207,41 @@ blockquote {
 }
 .nav__menu {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 10px);
   left: 0;
   min-width: 230px;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow);
-  padding: 0.45rem;
+  padding: 0.4rem;
   display: none;
   flex-direction: column;
 }
+/* invisible bridge so the cursor can cross the gap without losing hover */
+.nav__menu::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
 .nav__group.open .nav__menu, .nav__group:focus-within .nav__menu { display: flex; }
 @media (hover: hover) { .nav__group:hover .nav__menu { display: flex; } }
-.nav__menu a { display: block; padding: 0.55rem 0.8rem; }
+.nav__menu a {
+  display: block;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.nav__menu a:not([aria-current="page"]):hover { background: var(--mist-deep); color: var(--ink); }
+.nav__menu a[aria-current="page"] { color: var(--garnet); background: var(--mist); }
+/* caret flips when the group is open */
+.nav__group.open > button::after,
+.nav__group:hover > button::after { transform: rotate(-135deg) translateY(1px); }
+.nav__group.open > button, .nav__group:hover > button { background: var(--mist-deep); }
 
 .btn {
   display: inline-flex;
