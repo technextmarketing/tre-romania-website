@@ -80,6 +80,17 @@
     });
   });
 
+  // Footer: toggle the legal fine print
+  document.querySelectorAll("[data-legal-toggle]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var wrap = btn.closest(".site-footer__legal");
+      if (!wrap) return;
+      var open = wrap.getAttribute("data-legal-open") === "true";
+      wrap.setAttribute("data-legal-open", open ? "false" : "true");
+      btn.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+  });
+
   // Events page: filter chips + detail modal
   var grid = document.getElementById("ev-grid");
   if (grid) {
