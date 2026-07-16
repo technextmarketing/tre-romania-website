@@ -113,6 +113,16 @@
       });
     });
 
+    // Grid / list view toggle
+    var viewBtns = [].slice.call(document.querySelectorAll(".view-btn"));
+    viewBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var view = btn.getAttribute("data-view");
+        viewBtns.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+        grid.classList.toggle("ev-grid--list", view === "list");
+      });
+    });
+
     var modal = document.getElementById("event-modal");
     var modalBody = modal ? modal.querySelector(".modal__body") : null;
     var scroll = modal ? modal.querySelector(".modal__scroll") : null;
