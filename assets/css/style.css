@@ -87,7 +87,8 @@ blockquote {
 
 /* ---------- layout helpers ---------- */
 .container { max-width: var(--container); margin: 0 auto; padding: 0 clamp(1.1rem, 4vw, 2rem); }
-.section { padding: clamp(3.2rem, 7vw, 5.5rem) 0; }
+.section { padding: clamp(2.6rem, 5vw, 4.2rem) 0; }
+.section + .section { padding-top: clamp(2.4rem, 4.5vw, 3.6rem); }
 .section--mist { background: var(--mist); }
 .section--ink { background: var(--ink); }
 .section--ink h2, .section--ink h3 { color: var(--white); }
@@ -375,7 +376,8 @@ blockquote {
 }
 
 .card {
-  background: var(--white);
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f5f8f7 100%);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
@@ -384,6 +386,73 @@ blockquote {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+
+/* --- card variants: add life where a group would otherwise be flat --- */
+/* tint: warm paper gradient */
+.card--tint { background: linear-gradient(155deg, #fbf5ec 0%, #eef2f0 100%); border-color: #e7ded1; }
+/* mist tint: cool */
+.card--mist { background: linear-gradient(155deg, #eef4f3 0%, #e2ebe9 100%); border-color: var(--mist-deep); }
+/* accent: garnet top rule */
+.card--accent { border-top: 3px solid var(--garnet); }
+.card--accent-ochre { border-top: 3px solid var(--ochre); }
+/* feature: rich ink gradient with light text */
+.card--feature {
+  background: linear-gradient(150deg, var(--ink) 0%, #0e2831 100%);
+  border-color: transparent;
+  color: #d7e3e6;
+}
+.card--feature .card__body h3,
+.card--feature .card__body h4 { color: #fff; }
+.card--feature .card__body p,
+.card--feature .card__body li { color: #c2d3d7; }
+.card--feature .eyebrow { color: var(--ochre); }
+.card--feature .btn:not(.btn--light) { background: #fff; color: var(--garnet); border-color: #fff; }
+.card--feature .btn:not(.btn--light):hover { background: var(--mist-deep); border-color: var(--mist-deep); color: var(--garnet-deep); }
+.card--feature .btn--ghost { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.55); }
+.card--feature .btn--ghost:hover { background: #fff; color: var(--garnet); border-color: #fff; }
+/* garnet feature */
+.card--garnet {
+  background: linear-gradient(150deg, var(--garnet) 0%, var(--garnet-deep) 100%);
+  border-color: transparent;
+  color: #f6dede;
+}
+.card--garnet .card__body h3,
+.card--garnet .card__body h4 { color: #fff; }
+.card--garnet .card__body p,
+.card--garnet .card__body li { color: #f2d6d6; }
+.card--garnet .eyebrow { color: #ffd9a0; }
+.card--garnet .btn { background: #fff; color: var(--garnet); border-color: #fff; }
+.card--garnet .btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+/* photo: blurred image behind a scrim; pass --card-bg: url(...) */
+.card--photo { border-color: transparent; color: #e9eff0; isolation: isolate; }
+.card--photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--card-bg);
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.08);
+  filter: blur(3px);
+}
+.card--photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(150deg, rgba(23, 50, 60, 0.82) 0%, rgba(14, 40, 49, 0.9) 100%);
+}
+.card--photo .card__body h3,
+.card--photo .card__body h4 { color: #fff; }
+.card--photo .card__body p,
+.card--photo .card__body li { color: #d4e0e3; }
+.card--photo .eyebrow { color: var(--ochre); }
+.card--photo .btn { background: #fff; color: var(--garnet); border-color: #fff; }
+.card--photo .btn:hover { background: var(--mist-deep); border-color: var(--mist-deep); color: var(--garnet-deep); }
+.card--feature .card__link,
+.card--photo .card__link,
+.card--garnet .card__link { color: var(--ochre); }
 .card__media { aspect-ratio: 3 / 2; overflow: hidden; }
 .card__media--square { aspect-ratio: 1; }
 .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
