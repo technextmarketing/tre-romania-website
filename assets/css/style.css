@@ -651,25 +651,30 @@ figure img { border-radius: var(--radius); margin: 0 auto; }
 .tm {
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
-  margin-bottom: clamp(2rem, 4vw, 3.2rem);
+  margin: 0 0 clamp(2rem, 4vw, 3.2rem);
 }
 .tm__quote {
   font-style: italic;
   color: var(--ink-soft);
   font-size: 1rem;
   line-height: 1.72;
-  margin: 0 0 1.2rem;
+  margin: 0 0 1.4rem;
+  padding: 0.1rem 0 0.1rem 1.4rem;
+  border-left: 3px solid var(--ochre);
+  background: none;
+  border-radius: 0;
 }
-.tm__author { display: flex; align-items: center; gap: 1.15rem; }
+.tm__author { display: flex; align-items: center; gap: 1.1rem; padding-left: 1.4rem; }
 .tm__author img {
-  width: 88px; height: 88px;
+  width: 82px; height: 82px;
+  margin: 0;
   flex: none;
   object-fit: cover;
   border-radius: 50%;
   border: 1px solid var(--line);
   background: var(--mist-deep);
 }
-.tm__author > span { display: flex; flex-direction: column; }
+.tm__author > span { display: flex; flex-direction: column; min-width: 0; }
 .tm__name { display: block; font-family: var(--font-display); font-weight: 700; font-size: 1.45rem; color: var(--ink); line-height: 1.12; }
 .tm__role { display: block; font-family: var(--font-display); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--garnet); margin-top: 0.4rem; }
 
