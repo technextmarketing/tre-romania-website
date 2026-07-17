@@ -185,41 +185,6 @@ blockquote {
 .nav a[aria-current="page"]:not(.btn) { color: var(--garnet); }
 .nav a.btn { color: var(--white); margin-left: 0.4rem; border-radius: var(--radius-sm); }
 
-/* language selector (dropdown) */
-.lang-select { margin-left: 0.5rem; flex: none; }
-.lang-select > button.lang-select__btn {
-  border: 1px solid var(--line);
-  background: var(--white);
-  color: var(--ink);
-  font-weight: 600;
-  gap: 0.4rem;
-  padding: 0.42rem 0.62rem;
-  letter-spacing: 0.04em;
-}
-.lang-select > button.lang-select__btn:hover { background: var(--mist-deep); border-color: var(--muted); }
-.lang-select__btn svg {
-  width: 16px; height: 16px;
-  flex: none;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
-}
-.lang-select__current { line-height: 1.2; }
-/* right-align the menu so it stays within the viewport near the header edge */
-.lang-select .nav__menu { left: auto; right: 0; min-width: 156px; }
-.lang-select__opt {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  font-weight: 600;
-}
-.lang-select__opt[aria-current="true"] { color: var(--garnet); background: var(--mist); }
-.lang-select__opt[aria-current="true"]::after { content: "✓"; font-weight: 700; color: var(--garnet); }
-@media (max-width: 1160px) {
-  .lang-select { margin-left: 0; margin-top: 0.4rem; }
-  .lang-select .nav__menu { right: auto; }
-}
 
 .nav__group { position: relative; }
 .nav__group > button {
