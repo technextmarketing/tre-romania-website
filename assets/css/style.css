@@ -553,16 +553,18 @@ blockquote {
 /* split section (media + text) */
 .split {
   display: grid;
-  grid-template-columns: 1.25fr 0.9fr;
+  grid-template-columns: 1fr 1fr;
   gap: clamp(2rem, 5vw, 4.5rem);
   align-items: center;
 }
-/* keep the media (image) as the wider column in both orientations */
-.split--flip { grid-template-columns: 0.9fr 1.25fr; }
 .split__media img { border-radius: var(--radius); box-shadow: var(--shadow); width: 100%; }
 .split--flip .split__media { order: 2; }
+/* image-emphasis variant — larger media column, for short promo blocks
+   (balanced 1fr/1fr stays the default so text-heavy splits don't cramp) */
+.split--media { grid-template-columns: 1.3fr 0.82fr; }
+.split--media.split--flip { grid-template-columns: 0.82fr 1.3fr; }
 @media (max-width: 860px) {
-  .split, .split--flip { grid-template-columns: 1fr; }
+  .split, .split--media, .split--media.split--flip { grid-template-columns: 1fr; }
   .split--flip .split__media { order: 0; }
 }
 
