@@ -75,6 +75,17 @@
   };
   [].slice.call(document.querySelectorAll("[data-countdown]")).forEach(window.treCountdown);
 
+  // Hero background video — nudge muted autoplay for stricter browsers /
+  // bfcache restores. If blocked, the poster image remains as fallback.
+  (function () {
+    var hv = document.querySelector("video.hero__bg");
+    if (!hv) return;
+    hv.muted = true;
+    var kick = function () { var p = hv.play(); if (p && p.catch) p.catch(function () {}); };
+    kick();
+    window.addEventListener("pageshow", kick);
+  })();
+
   // Reveal on scroll
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(

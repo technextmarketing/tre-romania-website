@@ -1,3 +1,4 @@
 Thumbs.db
 .DS_Store
-video/
+video/*
+!video/hero-home.mp4
