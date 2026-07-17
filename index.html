@@ -362,7 +362,7 @@
     return new Date(+m[3], mon, +m[1], m[4] ? +m[4] : 19, m[5] ? +m[5] : 0, 0);
   }
 
-  fetch("evenimente.html")
+  fetch("evenimente.html", { cache: "no-cache" })
     .then(function (r) { if (!r.ok) throw new Error("http"); return r.text(); })
     .then(function (html) {
       var doc = new DOMParser().parseFromString(html, "text/html");
