@@ -1,4 +1,29 @@
 // Asociația TRE® România — shared behaviour
+
+// ---- Language toggle: Romanian (default) / English ----
+(function () {
+  "use strict";
+  function apply(lang) {
+    document.documentElement.setAttribute("lang", lang);
+    var nodes = document.querySelectorAll("[data-en]");
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      if (el.getAttribute("data-ro") === null) el.setAttribute("data-ro", el.innerHTML);
+      el.innerHTML = lang === "en" ? el.getAttribute("data-en") : el.getAttribute("data-ro");
+    }
+    try { localStorage.setItem("tre-lang", lang); } catch (e) {}
+  }
+  var saved = "ro";
+  try { saved = localStorage.getItem("tre-lang") || "ro"; } catch (e) {}
+  if (saved === "en") apply("en");
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest ? e.target.closest("[data-lang-toggle]") : null;
+    if (!t) return;
+    var cur = document.documentElement.getAttribute("lang") === "en" ? "en" : "ro";
+    apply(cur === "en" ? "ro" : "en");
+  });
+})();
+
 (function () {
   "use strict";
 
