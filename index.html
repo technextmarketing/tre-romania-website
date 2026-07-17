@@ -400,9 +400,9 @@
         var tags = a.querySelector(".ev-card__body .ev-card__tags");
         var iso = o.start.getFullYear() + "-" + ("0" + (o.start.getMonth() + 1)).slice(-2) + "-" +
           ("0" + o.start.getDate()).slice(-2) + "T" + ("0" + o.start.getHours()).slice(-2) + ":" + ("0" + o.start.getMinutes()).slice(-2);
-        return '<article class="card event-card reveal">' +
+        return '<article class="card event-card">' +
           '<div class="event-card__badge"><strong>' + esc(day) + "</strong><span>" + esc(mon) + " " + esc(year) + "</span></div>" +
-          '<div class="card__media">' + (img ? '<img src="' + esc(img.getAttribute("src")) + '" alt="' + esc(img.getAttribute("alt")) + '" loading="lazy">' : "") + "</div>" +
+          '<div class="card__media">' + (img ? '<img src="' + esc(img.getAttribute("src")) + '" alt="' + esc(img.getAttribute("alt")) + '">' : "") + "</div>" +
           '<div class="card__body">' +
             (tags ? '<div class="ev-card__tags">' + tags.innerHTML + "</div>" : "") +
             "<h3>" + esc(title) + "</h3>" +
