@@ -1,6 +1,6 @@
 // Asociația TRE® România — shared behaviour
 
-// ---- Language toggle: Romanian (default) / English ----
+// ---- Language selector (dropdown): Romanian (default) / English ----
 (function () {
   "use strict";
   function apply(lang) {
@@ -11,16 +11,29 @@
       if (el.getAttribute("data-ro") === null) el.setAttribute("data-ro", el.innerHTML);
       el.innerHTML = lang === "en" ? el.getAttribute("data-en") : el.getAttribute("data-ro");
     }
+    // sync the dropdown UI: current-language label + active option
+    var labels = document.querySelectorAll("[data-lang-current]");
+    for (var j = 0; j < labels.length; j++) labels[j].textContent = lang === "en" ? "EN" : "RO";
+    var opts = document.querySelectorAll("[data-set-lang]");
+    for (var k = 0; k < opts.length; k++) {
+      opts[k].setAttribute("aria-current", opts[k].getAttribute("data-set-lang") === lang ? "true" : "false");
+    }
     try { localStorage.setItem("tre-lang", lang); } catch (e) {}
   }
   var saved = "ro";
   try { saved = localStorage.getItem("tre-lang") || "ro"; } catch (e) {}
-  if (saved === "en") apply("en");
+  apply(saved);
   document.addEventListener("click", function (e) {
-    var t = e.target.closest ? e.target.closest("[data-lang-toggle]") : null;
-    if (!t) return;
-    var cur = document.documentElement.getAttribute("lang") === "en" ? "en" : "ro";
-    apply(cur === "en" ? "ro" : "en");
+    var opt = e.target.closest ? e.target.closest("[data-set-lang]") : null;
+    if (!opt) return;
+    e.preventDefault();
+    apply(opt.getAttribute("data-set-lang"));
+    var group = opt.closest(".nav__group");
+    if (group) {
+      group.classList.remove("open");
+      var btn = group.querySelector("button");
+      if (btn) btn.setAttribute("aria-expanded", "false");
+    }
   });
 })();
 

@@ -2,7 +2,7 @@
    Asociația TRE® România — design system
    Palette drawn from the association's own brand:
    garnet (logo red) · deep teal ink · ochre gold · mist paper
-   Type: Bricolage Grotesque (display) + Source Serif 4 (body)
+   Type: Fraunces (display serif) + Inter (body / UI sans)
    Signature: the "tremor line" — the neurogenic tremor as a
    gently oscillating sine divider.
    ============================================================ */
@@ -21,8 +21,8 @@
   --muted: #5f7178;
   --line: #d8e1df;
 
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "Josefin Sans", "Segoe UI", Arial, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", "Segoe UI", Arial, sans-serif;
 
   --radius: 3px;
   --radius-sm: 2px;
@@ -46,6 +46,8 @@ body {
   color: var(--body);
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
 }
 
 img { max-width: 100%; height: auto; display: block; }
@@ -183,25 +185,41 @@ blockquote {
 .nav a[aria-current="page"]:not(.btn) { color: var(--garnet); }
 .nav a.btn { color: var(--white); margin-left: 0.4rem; border-radius: var(--radius-sm); }
 
-/* language toggle */
-.lang-toggle {
-  display: inline-flex;
-  align-items: stretch;
-  margin-left: 0.5rem;
+/* language selector (dropdown) */
+.lang-select { margin-left: 0.5rem; flex: none; }
+.lang-select > button.lang-select__btn {
   border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
   background: var(--white);
-  cursor: pointer;
-  padding: 0;
-  font-family: var(--font-body);
-  flex: none;
+  color: var(--ink);
+  font-weight: 600;
+  gap: 0.4rem;
+  padding: 0.42rem 0.62rem;
+  letter-spacing: 0.04em;
 }
-.lang-toggle span { padding: 0.42rem 0.55rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; color: var(--muted); line-height: 1.2; }
-.lang-toggle .lang-en { border-left: 1px solid var(--line); }
-html:not([lang="en"]) .lang-toggle .lang-ro,
-html[lang="ro"] .lang-toggle .lang-ro { background: var(--garnet); color: var(--white); }
-html[lang="en"] .lang-toggle .lang-en { background: var(--garnet); color: var(--white); }
+.lang-select > button.lang-select__btn:hover { background: var(--mist-deep); border-color: var(--muted); }
+.lang-select__btn svg {
+  width: 16px; height: 16px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+.lang-select__current { line-height: 1.2; }
+/* right-align the menu so it stays within the viewport near the header edge */
+.lang-select .nav__menu { left: auto; right: 0; min-width: 156px; }
+.lang-select__opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 600;
+}
+.lang-select__opt[aria-current="true"] { color: var(--garnet); background: var(--mist); }
+.lang-select__opt[aria-current="true"]::after { content: "✓"; font-weight: 700; color: var(--garnet); }
+@media (max-width: 1160px) {
+  .lang-select { margin-left: 0; margin-top: 0.4rem; }
+  .lang-select .nav__menu { right: auto; }
+}
 
 .nav__group { position: relative; }
 .nav__group > button {
