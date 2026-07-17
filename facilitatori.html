@@ -10,6 +10,167 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<style>
+  /* ===== Facilitators directory (page-scoped; no edits to style.css) ===== */
+  .fac-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    align-items: center;
+    justify-content: center;
+    margin: 2.4rem 0 0.8rem;
+  }
+  .fac-toolbar .event-filters { margin: 0; justify-content: center; }
+  .fac-search {
+    flex: 1 1 260px;
+    max-width: 360px;
+    min-width: 200px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.72rem 0.95rem 0.72rem 2.55rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--body);
+    background: var(--white) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235f7178' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>") no-repeat 0.85rem center;
+    background-size: 18px 18px;
+  }
+  .fac-search:focus { outline: 3px solid rgba(180, 129, 13, 0.35); border-color: var(--ochre); }
+  .fac-city {
+    flex: none;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 0.72rem 2.3rem 0.72rem 0.95rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--body);
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--white) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%235f7178' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat right 0.85rem center;
+    background-size: 12px 8px;
+  }
+  .fac-city:focus { outline: 3px solid rgba(180, 129, 13, 0.35); border-color: var(--ochre); }
+  .fac-count {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    text-align: center;
+    margin: 0.6rem 0 0;
+  }
+
+  .fac-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: clamp(1.2rem, 2.5vw, 1.9rem);
+    margin-top: 1.8rem;
+  }
+  @media (max-width: 460px) { .fac-grid { grid-template-columns: 1fr; } }
+  .fac-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    background: linear-gradient(180deg, #ffffff 0%, #f5f8f7 100%);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.9rem 1.3rem 1.6rem;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    width: 100%;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .fac-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--mist-deep); }
+  .fac-card:focus-visible { outline: 3px solid var(--ochre); outline-offset: 3px; }
+  .fac-avatar {
+    width: 118px;
+    height: 118px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex: none;
+    border: 1px solid var(--line);
+    background: var(--mist-deep);
+    box-shadow: var(--shadow-soft);
+  }
+  .fac-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .fac-avatar--ph { background: var(--mist); display: flex; align-items: center; justify-content: center; }
+  .fac-avatar--ph img { object-fit: contain; padding: 15%; opacity: 0.85; }
+  .fac-card__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 1.12rem;
+    line-height: 1.2;
+    margin: 0.35rem 0 0;
+  }
+  .fac-card:hover .fac-card__name { color: var(--garnet); }
+  .fac-card__city { font-family: var(--font-body); font-size: 0.88rem; color: var(--muted); margin: 0; }
+
+  .fac-badge {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.62rem;
+    border-radius: var(--radius-sm);
+    background: var(--mist-deep);
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+  }
+  .fac-badge--adv { background: #f6ecd9; color: #8a6408; border-color: #ecd9ad; }
+
+  /* ---- profile modal (reuses .modal / .modal__close / .modal__scroll) ---- */
+  .fac-modal { padding: clamp(1.6rem, 4vw, 2.5rem); }
+  .fac-modal__head { display: flex; gap: 1.4rem; align-items: center; flex-wrap: wrap; }
+  .fac-modal__avatar {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex: none;
+    border: 1px solid var(--line);
+    background: var(--mist-deep);
+    box-shadow: var(--shadow-soft);
+  }
+  .fac-modal__avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .fac-modal__avatar--ph { background: var(--mist); display: flex; align-items: center; justify-content: center; }
+  .fac-modal__avatar--ph img { object-fit: contain; padding: 16%; opacity: 0.85; }
+  .fac-modal__id { min-width: 0; }
+  .fac-modal__id h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 0.5rem 0 0.35rem; }
+  .fac-modal__city {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin: 0.2rem 0 0;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .fac-modal__city svg { width: 16px; height: 16px; flex: none; fill: none; stroke: var(--garnet); stroke-width: 1.7; }
+  .fac-socials { display: flex; gap: 0.55rem; margin-top: 1rem; }
+  .fac-socials a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--garnet);
+    background: var(--white);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .fac-socials a:hover { background: var(--garnet); color: var(--white); border-color: var(--garnet); text-decoration: none; }
+  .fac-socials svg { width: 18px; height: 18px; fill: currentColor; }
+  .fac-modal__bio { margin-top: 1.5rem; border-top: 1px solid var(--line); padding-top: 1.35rem; }
+  .fac-modal__bio p { font-size: 0.99rem; color: var(--body); }
+  .fac-modal__bio p:last-child { margin-bottom: 0; }
+  .fac-modal__actions { margin-top: 1.7rem; display: flex; flex-wrap: wrap; gap: 0.7rem; }
+</style>
 </head>
 <body>
 
@@ -72,60 +233,33 @@
     </div>
   </section>
 
-  <!-- Comunitatea facilitatorilor -->
+  <!-- Directorul facilitatorilor -->
   <section class="section">
     <div class="container">
       <div class="center reveal">
-        <span class="eyebrow">Comunitate</span>
-        <h2>Comunitatea facilitatorilor</h2>
+        <span class="eyebrow">Directorul facilitatorilor</span>
+        <h2>Găsește un facilitator TRE®</h2>
         <svg class="tremor" viewBox="0 0 240 20" aria-hidden="true"><path d="M0 10 Q6 3 12 10 T24 10 T36 10 T48 10 T60 10 T72 10 T84 10 T96 10 T108 10 T120 10 T132 10 T144 10 T156 10 T168 10 T180 10 T192 10 T204 10 T216 10 T228 10 T240 10 T252 10 T264 10"/><path d="M0 10 Q6 17 12 10 T24 10 T36 10 T48 10 T60 10 T72 10 T84 10 T96 10 T108 10 T120 10 T132 10 T144 10 T156 10 T168 10 T180 10 T192 10 T204 10 T216 10 T228 10 T240 10 T252 10 T264 10"/></svg>
-        <p class="lead">Facilitatorii certificați TRE® din România formează o comunitate în continuă creștere — fiecare cu propriul parcurs, dar cu aceeași pregătire riguroasă, sub egida TRE For All, Inc.</p>
+        <p class="lead">Caută după nume, filtrează după nivelul de certificare sau după oraș. Apasă pe o persoană pentru a-i vedea profilul și cum o poți contacta.</p>
       </div>
-      <div class="gallery mt-2 reveal">
-        <img src="images/member-1-profile_photo.jpg" alt="Facilitator TRE® din comunitate" loading="lazy">
-        <img src="images/member-5-profile_photo.png" alt="Facilitator TRE® din comunitate" loading="lazy">
-        <img src="images/member-7-profile_photo.png" alt="Facilitator TRE® din comunitate" loading="lazy">
-        <img src="images/member-11-profile_photo.jpg" alt="Facilitator TRE® din comunitate" loading="lazy">
-        <img src="images/member-18-profile_photo.jpg" alt="Facilitator TRE® din comunitate" loading="lazy">
-        <img src="images/member-19-profile_photo.jpg" alt="Facilitator TRE® din comunitate" loading="lazy">
-        <img src="images/member-26-profile_photo.png" alt="Facilitator TRE® din comunitate" loading="lazy">
-      </div>
-      <p class="note reveal">Directorul complet al membrilor — cu profil, județ și tip de facilitator — este disponibil prin asociație. Scrie-ne și te punem în legătură cu un facilitator potrivit pentru tine.</p>
-    </div>
-  </section>
 
-  <!-- Cum alegi un facilitator -->
-  <section class="section section--mist">
-    <div class="container">
-      <div class="center reveal">
-        <span class="eyebrow">Ghid</span>
-        <h2>Cum alegi un facilitator</h2>
-        <svg class="tremor" viewBox="0 0 240 20" aria-hidden="true"><path d="M0 10 Q6 3 12 10 T24 10 T36 10 T48 10 T60 10 T72 10 T84 10 T96 10 T108 10 T120 10 T132 10 T144 10 T156 10 T168 10 T180 10 T192 10 T204 10 T216 10 T228 10 T240 10 T252 10 T264 10"/><path d="M0 10 Q6 17 12 10 T24 10 T36 10 T48 10 T60 10 T72 10 T84 10 T96 10 T108 10 T120 10 T132 10 T144 10 T156 10 T168 10 T180 10 T192 10 T204 10 T216 10 T228 10 T240 10 T252 10 T264 10"/></svg>
-        <p class="lead">Directorul facilitatorilor certificați se poate filtra după două criterii simple — nivelul de certificare și orașul în care activează.</p>
-      </div>
-      <div class="grid grid--2 mt-2">
-        <article class="card reveal">
-          <div class="card__body">
-            <span class="eyebrow">Criteriul 1</span>
-            <h3>Nivel: Facilitator / Facilitator Avansat</h3>
-            <p><strong>Facilitatorul certificat TRE®</strong> a parcurs programul complet de formare și poate ghida sesiuni individuale și de grup. <strong>Facilitatorul Avansat</strong> a continuat pregătirea cu module avansate și supervizare aprofundată — o alegere potrivită dacă lucrezi cu traume complexe sau vrei un proces de durată.</p>
-          </div>
-        </article>
-        <article class="card reveal">
-          <div class="card__body">
-            <span class="eyebrow">Criteriul 2</span>
-            <h3>Oraș și județ</h3>
-            <p>Fiecare membru al directorului își afișează județul și orașul în care activează. Mulți facilitatori lucrează și online, așa că distanța nu este o barieră — poți începe procesul TRE® de oriunde te afli, cu întâlniri prin Zoom sau față în față.</p>
-          </div>
-        </article>
-      </div>
-      <div class="center mt-3 reveal">
-        <p>Nu știi de unde să începi? Scrie-ne și îți recomandăm un facilitator certificat, potrivit nevoilor tale — sau vino întâi la o sesiune demonstrativă, ca să simți metoda pe pielea ta.</p>
-        <div class="hero__actions" style="justify-content:center">
-          <a class="btn" href="mailto:office@treromania.org">Cere o recomandare</a>
-          <a class="btn btn--ghost" href="evenimente.html">Participă la o sesiune demo</a>
+      <div class="fac-toolbar reveal">
+        <input type="search" id="fac-search" class="fac-search" placeholder="Caută după nume…" aria-label="Caută după nume" autocomplete="off">
+        <div class="event-filters fac-chips" id="fac-types" role="group" aria-label="Filtrează după tipul de facilitator">
+          <button class="chip" type="button" data-type="all" aria-pressed="true">Toți <span class="chip__count"></span></button>
+          <button class="chip" type="button" data-type="Facilitator" aria-pressed="false">Facilitator <span class="chip__count"></span></button>
+          <button class="chip" type="button" data-type="Facilitator Avansat" aria-pressed="false">Facilitator Avansat <span class="chip__count"></span></button>
         </div>
+        <select id="fac-city" class="fac-city" aria-label="Filtrează după oraș">
+          <option value="all">Toate orașele</option>
+        </select>
       </div>
+
+      <p class="fac-count" id="fac-count" aria-live="polite"></p>
+
+      <div class="fac-grid reveal" id="fac-grid"></div>
+
+      <p class="no-results" id="fac-noresults">Niciun facilitator nu corespunde criteriilor alese. Încearcă alt nume, alt nivel sau alt oraș — sau <a href="mailto:office@treromania.org">scrie-ne</a> și te punem în legătură cu un facilitator potrivit.</p>
     </div>
   </section>
 
@@ -143,6 +277,11 @@
   </section>
 
 </main>
+
+<dialog class="modal" id="fac-modal" aria-label="Profil facilitator">
+  <button class="modal__close" type="button" aria-label="Închide">×</button>
+  <div class="modal__scroll"><div class="modal__body"></div></div>
+</dialog>
 
 <footer class="site-footer">
   <div class="container">
@@ -203,5 +342,6 @@
 </footer>
 
 <script src="assets/js/main.js"></script>
+<script src="assets/js/facilitatori.js"></script>
 </body>
 </html>
