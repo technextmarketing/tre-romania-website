@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil facilitator | Asociația TRE® România</title>
+<meta name="description" content="Profil facilitator TRE® certificat — Asociația TRE® România.">
+<link rel="icon" type="image/png" href="images/Black-And-White-Minimalist-Typography-Personal-Logo-1-e1729688158922.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .facp { max-width: 900px; margin: 0 auto; }
+  .facp-head { text-align: center; }
+  .facp-avatar {
+    width: 176px; height: 176px; border-radius: 50%; overflow: hidden;
+    margin: 0 auto 1.1rem; border: 1px solid var(--line);
+    background: var(--mist-deep); box-shadow: var(--shadow-soft);
+  }
+  .facp-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .facp-avatar--ph { background: var(--mist); display: flex; align-items: center; justify-content: center; }
+  .facp-avatar--ph img { object-fit: contain; padding: 16%; opacity: 0.85; }
+  .facp-name { margin: 0.5rem 0 0.6rem; }
+  .facp-badge {
+    display: inline-block; font-family: var(--font-body); font-weight: 700;
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.3rem 0.7rem; border-radius: var(--radius-sm);
+    background: var(--mist-deep); color: var(--ink-soft); border: 1px solid var(--line);
+  }
+  .facp-badge--adv { background: #f6ecd9; color: #8a6408; border-color: #ecd9ad; }
+  .facp-socials { display: flex; justify-content: center; gap: 0.6rem; margin: 1rem 0 0; }
+  .facp-socials a {
+    width: 42px; height: 42px; border-radius: 50%; display: inline-flex;
+    align-items: center; justify-content: center; background: var(--mist);
+    color: var(--garnet); transition: background 0.2s, color 0.2s;
+  }
+  .facp-socials a:hover { background: var(--garnet); color: #fff; }
+  .facp-socials svg { width: 18px; height: 18px; fill: currentColor; }
+
+  .facp-about {
+    display: grid; grid-template-columns: 1fr 300px;
+    gap: clamp(1.6rem, 3.5vw, 2.8rem); margin-top: clamp(2rem, 4vw, 3rem); align-items: start;
+  }
+  @media (max-width: 760px) { .facp-about { grid-template-columns: 1fr; } }
+  .facp-bio { font-size: 1.03rem; }
+  .facp-bio p { margin-bottom: 1em; }
+  .facp-note { color: var(--muted); }
+  .facp-side {
+    border: 1px solid var(--line); border-radius: var(--radius); background: var(--white);
+    box-shadow: var(--shadow-soft); padding: 1.4rem; position: sticky; top: calc(var(--header-h) + 18px);
+  }
+  @media (max-width: 760px) { .facp-side { position: static; } }
+  .facp-fields { list-style: none; padding: 0; margin: 0 0 1.2rem; display: grid; gap: 0.85rem; }
+  .facp-fields li { display: flex; flex-direction: column; gap: 0.2rem; border-bottom: 1px solid var(--line); padding-bottom: 0.8rem; }
+  .facp-fields li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .facp-fields span { font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .facp-fields strong { font-family: var(--font-body); color: var(--ink); font-weight: 600; font-size: 0.98rem; }
+  .facp-actions { display: flex; flex-direction: column; gap: 0.6rem; }
+  .facp-actions .btn { width: 100%; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="index.html">
+      <img src="images/logo-badge.png" alt="Logo Asociația TRE® România">
+      <span class="brand__name">Asociația TRE® România<small>Pagina oficială · din 2014</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Meniu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" aria-label="Meniu principal">
+      <a href="index.html" data-en="Home">Acasă</a>
+      <div class="nav__group">
+        <button type="button" aria-expanded="false" data-en="About">Despre</button>
+        <div class="nav__menu">
+          <a href="despre.html" data-en="About">Despre</a>
+          <a href="despre-tre.html" data-en="TRE®">TRE®</a>
+          <a href="tre-romania.html" data-en="TRE® Romania">TRE® România</a>
+          <a href="asociatie.html" data-en="Association">Asociație</a>
+          <a href="echipa.html" data-en="Members">Membri</a>
+        </div>
+      </div>
+      <div class="nav__group">
+        <button type="button" aria-expanded="false" data-en="Education">Educație</button>
+        <div class="nav__menu">
+          <a href="educatie.html" data-en="Education">Educație</a>
+          <a href="educatie-general.html" data-en="General">General</a>
+          <a href="formari.html" data-en="Trainings">Formări</a>
+          <a href="avansat.html" data-en="Advanced">Avansat</a>
+          <a href="cercetare.html" data-en="Research">Cercetare</a>
+        </div>
+      </div>
+      <a href="facilitatori.html" data-en="Facilitators" aria-current="page">Facilitatori</a>
+      <a href="evenimente.html" data-en="Events">Evenimente</a>
+      <a href="blog.html" data-en="Blog">Blog</a>
+      <div class="nav__group lang-select">
+        <button type="button" class="lang-select__btn" aria-expanded="false" aria-haspopup="true" aria-label="Schimbă limba / Change language" title="Română / English"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.6 2.7 3.9 5.8 3.9 9s-1.3 6.3-3.9 9c-2.6-2.7-3.9-5.8-3.9-9S9.4 5.7 12 3z"/></svg><span class="lang-select__current" data-lang-current>RO</span></button>
+        <div class="nav__menu lang-select__menu">
+          <a href="#" data-set-lang="ro" hreflang="ro" class="lang-select__opt">Română</a>
+          <a href="#" data-set-lang="en" hreflang="en" class="lang-select__opt">English</a>
+        </div>
+      </div>
+      <a class="btn btn--sm" href="echipa.html#comunitate" data-en="Become a member">Devino membru</a>
+      <a href="contact.html" data-en="Contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom:1.4rem"><a href="index.html">Acasă</a> · <a href="facilitatori.html">Facilitatori</a></nav>
+      <div id="fac-root"><p class="center" style="color:var(--muted);padding:2rem 0">Se încarcă profilul…</p></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__main">
+      <div class="footer-brand">
+        <img src="images/logo-badge.png" alt="Logo Asociația TRE® România">
+        <p data-en="The TRE® Romania Association promotes the TRE® method — Tension &amp; Trauma Releasing Exercises — through education, events and a community of certified facilitators.">Asociația TRE® România promovează metoda TRE® — Tension &amp; Trauma Releasing Exercises — prin educație, evenimente și o comunitate de facilitatori certificați.</p>
+        <div class="socials">
+          <a href="https://www.facebook.com/TREromania" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.3H7.6V13h2.7v8h3.2z"/></svg></a>
+          <a href="https://www.instagram.com/treromania/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4zm0-2.1a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6zm6.9-.3a1.3 1.3 0 1 1-2.6 0 1.3 1.3 0 0 1 2.6 0zM12 4.2c-2.6 0-2.9 0-4 .1-1 0-1.6.2-2 .4-.5.2-.9.4-1.2.8-.4.3-.6.7-.8 1.2-.2.4-.3 1-.4 2-.1 1.1-.1 1.4-.1 4s0 2.9.1 4c0 1 .2 1.6.4 2 .2.5.4.9.8 1.2.3.4.7.6 1.2.8.4.2 1 .3 2 .4 1.1.1 1.4.1 4 .1s2.9 0 4-.1c1 0 1.6-.2 2-.4.5-.2.9-.4 1.2-.8.4-.3.6-.7.8-1.2.2-.4.3-1 .4-2 .1-1.1.1-1.4.1-4s0-2.9-.1-4c0-1-.2-1.6-.4-2a3.1 3.1 0 0 0-.8-1.2 3.1 3.1 0 0 0-1.2-.8c-.4-.2-1-.3-2-.4-1.1-.1-1.4-.1-4-.1z"/></svg></a>
+          <a href="https://www.youtube.com/@fionasoma" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8c1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4 data-en="Explore">Explorează</h4>
+        <ul>
+          <li><a href="despre.html" data-en="About">Despre</a></li>
+          <li><a href="despre-tre.html" data-en="About TRE®">Despre TRE®</a></li>
+          <li><a href="asociatie.html" data-en="Association">Asociația</a></li>
+          <li><a href="echipa.html" data-en="Members">Membri</a></li>
+          <li><a href="facilitatori.html" data-en="Facilitators">Facilitatori</a></li>
+          <li><a href="evenimente.html" data-en="Events">Evenimente</a></li>
+          <li><a href="blog.html" data-en="Blog">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en="Education">Educație</h4>
+        <ul>
+          <li><a href="educatie.html" data-en="Education">Educație</a></li>
+          <li><a href="educatie-general.html" data-en="General">General</a></li>
+          <li><a href="formari.html" data-en="Trainings">Formări</a></li>
+          <li><a href="avansat.html" data-en="Advanced">Avansat</a></li>
+          <li><a href="cercetare.html" data-en="Research">Cercetare</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en="Contact">Contact</h4>
+        <ul>
+          <li><a href="mailto:office@treromania.org">office@treromania.org</a></li>
+          <li><a href="tel:+40742064924">+40 742 064 924</a></li>
+          <li data-en="8 Mărășești Blvd., district 4, Bucharest">Bd. Mărășești nr. 8, sector 4, București</li>
+        </ul>
+        <div class="footer-partner">
+          <img src="images/TRE-Romania-Site-October-2024-4.png" alt="TRE For All, Inc. — Tension · Stress · Trauma Release" loading="lazy">
+          <small data-en="Affiliated with TRE For All, Inc.">Afiliată TRE For All, Inc.</small>
+        </div>
+      </div>
+    </div>
+    <div class="site-footer__legal">
+      <p>Copyright © 2026 Asociația TRE® România | Pagina Oficială · <a href="contact.html">Contact</a></p>
+      <button class="legal-toggle" type="button" data-legal-toggle data-en="Legal note &amp; trademarks ▾">Notă legală &amp; mărci înregistrate ▾</button>
+      <div class="legal-fine">
+        <p>**TRE® has not been evaluated by the US Food &amp; Drug Administration or the American Medical Association. This technology is not intended to diagnose, treat, cure, or prevent any disease. Medical advice must only be obtained from a physician or qualified health practitioner. Results may vary between individuals. There are no guarantees, expressed, or implied.</p>
+        <p>**TRE® denotes TRE's registered trademark. Dr. David Berceli holds the Copyright, Trademark, and Service Mark (SM) for all TRE training materials and the TRE process. All rights to use are reserved and TRE FOR ALL, Inc (TFA) (NGO) holds distribution rights. Also protected are the Trauma Release Process SM and tension Release Process SM.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/facilitators-data.js"></script>
+<script>
+/* Facilitator profile page — reads ?f=<slug> and renders from TRE_FACILITATORS. */
+(function () {
+  "use strict";
+  var root = document.getElementById("fac-root");
+  var list = window.TRE_FACILITATORS || [];
+  var slug = new URLSearchParams(location.search).get("f");
+  var fac = null;
+  for (var i = 0; i < list.length; i++) { if (list[i].slug === slug) { fac = list[i]; break; } }
+
+  function esc(s) { return (s || "").toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function waNumber(raw) { var d = (raw || "").replace(/[^\d]/g, ""); if (!d) return ""; if (d.charAt(0) === "0") d = "40" + d.slice(1); return d; }
+  function bioHtml(bio) { return bio.split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join(""); }
+
+  var ICONS = {
+    facebook: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.3H7.6V13h2.7v8h3.2z"/></svg>',
+    instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4zm0-2.1a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6zm6.9-.3a1.3 1.3 0 1 1-2.6 0 1.3 1.3 0 0 1 2.6 0zM12 4.2c-2.6 0-2.9 0-4 .1-1 0-1.6.2-2 .4-.5.2-.9.4-1.2.8-.4.3-.6.7-.8 1.2-.2.4-.3 1-.4 2-.1 1.1-.1 1.4-.1 4s0 2.9.1 4c0 1 .2 1.6.4 2 .2.5.4.9.8 1.2.3.4.7.6 1.2.8.4.2 1 .3 2 .4 1.1.1 1.4.1 4 .1s2.9 0 4-.1c1 0 1.6-.2 2-.4.5-.2.9-.4 1.2-.8.4-.3.6-.7.8-1.2.2-.4.3-1 .4-2 .1-1.1.1-1.4.1-4s0-2.9-.1-4c0-1-.2-1.6-.4-2a3.1 3.1 0 0 0-.8-1.2 3.1 3.1 0 0 0-1.2-.8c-.4-.2-1-.3-2-.4-1.1-.1-1.4-.1-4-.1z"/></svg>',
+    whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.94 1.35-.5.05-1.13.24-3.66-.77-3.08-1.24-5.04-4.4-5.19-4.6-.15-.2-1.24-1.65-1.24-3.15s.79-2.24 1.07-2.54c.28-.3.61-.38.81-.38.2 0 .4 0 .58.01.19.01.44-.07.68.52.24.6.83 2.07.9 2.22.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12 1 2.07 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.72.81 2.01.96.3.15.5.22.57.35.07.13.07.75-.17 1.43z"/></svg>'
+  };
+
+  if (!fac) {
+    root.innerHTML = '<div class="center"><span class="eyebrow">Facilitator</span><h1>Profil indisponibil</h1>' +
+      '<p class="lead">Nu am găsit acest facilitator în director.</p>' +
+      '<p class="mt-2"><a class="btn" href="facilitatori.html">Toți facilitatorii</a></p></div>';
+    return;
+  }
+
+  document.title = fac.name + " | Facilitatori TRE® România";
+  var hasPhoto = !!fac.photo;
+  var src = hasPhoto ? fac.photo : "images/logo-badge.png";
+  var isAdv = fac.type === "Facilitator Avansat";
+
+  var socials = "";
+  if (fac.facebook) socials += '<a href="' + esc(fac.facebook) + '" target="_blank" rel="noopener" aria-label="Facebook">' + ICONS.facebook + "</a>";
+  if (fac.instagram) socials += '<a href="' + esc(fac.instagram) + '" target="_blank" rel="noopener" aria-label="Instagram">' + ICONS.instagram + "</a>";
+  if (fac.whatsapp) { var wa = waNumber(fac.whatsapp); if (wa) socials += '<a href="https://wa.me/' + wa + '" target="_blank" rel="noopener" aria-label="WhatsApp">' + ICONS.whatsapp + "</a>"; }
+
+  var firstName = fac.name.split(" ")[0];
+
+  var actions = "";
+  if (fac.profile) actions += '<a class="btn" href="' + esc(fac.profile) + '">Vezi profilul complet →</a>';
+  actions += '<a class="btn ' + (fac.profile ? "btn--ghost" : "") + '" href="mailto:office@treromania.org?subject=' +
+    encodeURIComponent("Contact facilitator: " + fac.name) + '">Contactează prin asociație</a>';
+
+  var fields = "";
+  if (fac.city) fields += "<li><span>Oraș</span><strong>" + esc(fac.city) + "</strong></li>";
+  fields += "<li><span>Tip facilitator</span><strong>" + esc(fac.type) + "</strong></li>";
+
+  var bio = fac.bio
+    ? bioHtml(fac.bio)
+    : '<p class="facp-note">Detalii suplimentare despre parcursul și practica acestui facilitator sunt disponibile prin asociație' +
+      (fac.profile ? ' sau în profilul complet' : "") + ". Scrie-ne pentru o recomandare potrivită nevoilor tale.</p>";
+
+  root.innerHTML =
+    '<div class="facp">' +
+      '<div class="facp-head">' +
+        '<span class="facp-avatar' + (hasPhoto ? "" : " facp-avatar--ph") + '">' +
+          '<img src="' + esc(src) + '" alt="' + (hasPhoto ? "Portret " + esc(fac.name) : "Asociația TRE® România") + '">' +
+        "</span>" +
+        '<div><span class="facp-badge' + (isAdv ? " facp-badge--adv" : "") + '">' + esc(fac.type) + "</span></div>" +
+        '<h1 class="facp-name">' + esc(fac.name) + "</h1>" +
+        (socials ? '<div class="facp-socials">' + socials + "</div>" : "") +
+      "</div>" +
+      '<svg class="tremor" style="margin:1.6rem auto 0" viewBox="0 0 240 20" aria-hidden="true"><path d="M0 10 Q6 3 12 10 T24 10 T36 10 T48 10 T60 10 T72 10 T84 10 T96 10 T108 10 T120 10 T132 10 T144 10 T156 10 T168 10 T180 10 T192 10 T204 10 T216 10 T228 10 T240 10 T252 10 T264 10"/><path d="M0 10 Q6 17 12 10 T24 10 T36 10 T48 10 T60 10 T72 10 T84 10 T96 10 T108 10 T120 10 T132 10 T144 10 T156 10 T168 10 T180 10 T192 10 T204 10 T216 10 T228 10 T240 10 T252 10 T264 10"/></svg>' +
+      '<div class="facp-about">' +
+        '<div><h2>Despre ' + esc(firstName) + "</h2>" +
+          '<div class="facp-bio">' + bio + "</div></div>" +
+        '<aside class="facp-side">' +
+          '<ul class="facp-fields">' + fields + "</ul>" +
+          '<div class="facp-actions">' + actions + "</div>" +
+        "</aside>" +
+      "</div>" +
+    "</div>";
+})();
+</script>
+</body>
+</html>

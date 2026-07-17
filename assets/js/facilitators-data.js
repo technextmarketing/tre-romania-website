@@ -1,0 +1,36 @@
+// Asociația TRE® România — shared facilitators dataset
+// Used by facilitatori.html (directory grid) and facilitator.html (profile page).
+// type: "Facilitator" | "Facilitator Avansat"
+// photo: local portrait (empty => logo placeholder, as on the reference)
+// profile: existing full member page (empty => contact via association)
+window.TRE_FACILITATORS = [
+  { slug: "adriana-neagu", name: "Adriana Neagu", city: "București & Tunari (IF)", type: "Facilitator", photo: "images/fac-adriana-neagu.jpg", profile: "", bio: "2010 – Reiki Usui\n2011–2015 – Terapeut energetic\n2016–prezent – Practician QHHT (Quantum Healing Hypnosis Technique)\n2025–prezent – Facilitator TRE®\nwww.qhhtromania.ro", facebook: "", instagram: "", whatsapp: "0731885067" },
+  { slug: "alice-cristina-mihailescu", name: "Alice Cristina Mihailescu", city: "", type: "Facilitator", photo: "", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "alice-negoita", name: "Alice Negoiță", city: "București", type: "Facilitator", photo: "images/fac-alice-negoita.jpg", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "alina-mustata", name: "Alina Nicoleta Mustață", city: "Brașov", type: "Facilitator", photo: "images/fac-alina-mustata.jpg", profile: "member-alina-mustata.html", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "anca-liana-vernon", name: "Anca Liana Vernon", city: "", type: "Facilitator", photo: "images/fac-anca-liana-vernon.jpg", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "andreea-baesu", name: "Andreea Băesu", city: "Brașov", type: "Facilitator", photo: "images/fac-andreea-baesu.jpg", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "catalina-musat", name: "Cătălina Mușat", city: "", type: "Facilitator", photo: "", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "claudia-vancu", name: "Claudia Vancu", city: "Cluj-Napoca", type: "Facilitator", photo: "images/fac-claudia-vancu.jpg", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "crina-tudor", name: "Crina Maria Tudor", city: "Timișoara", type: "Facilitator Avansat", photo: "images/fac-crina-tudor.jpg", profile: "member-crina-tudor.html", bio: "Facilitator TRE® (Tension, Stress, Trauma Release). Instructor yoga TTC 200 Hatha Yoga (PadmaKarma Yoga, Kerala, India) și TTC 200 Vinyasa Yoga (Frog Lotus Yoga International, Spania). NLP Practitioner. Inginer proiectant în construcții și auditor energetic.\n\nAm descoperit metoda TRE în 2016, într-un moment în care aveam disperată nevoie de ea. Am integrat-o ca instrument de auto-vindecare și auto-reglare, iar impactul a fost atât de mare încât am decis să devin facilitator, pentru a răspândi această metodă la cât mai multe persoane.", facebook: "", instagram: "", whatsapp: "+40745271186" },
+  { slug: "cristina-teasa", name: "Cristina Teașă", city: "București, Ilfov", type: "Facilitator", photo: "images/fac-cristina-teasa.jpg", profile: "member-cristina-teasa.html", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "denisa-anghel", name: "Denisa Anghel", city: "București", type: "Facilitator", photo: "images/fac-denisa-anghel.jpg", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "diana-tataran", name: "Diana Tătăran", city: "Timișoara", type: "Facilitator", photo: "images/fac-diana-tataran.png", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "doina-raita", name: "Doina Raita", city: "București + Ilfov", type: "Facilitator", photo: "images/fac-doina-raita.png", profile: "member-doina-raita.html", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "eniko-balazs", name: "Enikő Balázs", city: "Brașov, Miercurea Ciuc", type: "Facilitator", photo: "images/fac-eniko-balazs.gif", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "gabriela-abrudan", name: "Gabriela Cristina Abrudan", city: "", type: "Facilitator", photo: "", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "georgeta-apostol", name: "Georgeta Apostol", city: "București și Bragadiru", type: "Facilitator", photo: "images/fac-georgeta-apostol.jpg", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "georgiana-sfetea", name: "Georgiana Sfetea", city: "Brașov", type: "Facilitator Avansat", photo: "images/fac-georgiana-sfetea.png", profile: "member-georgiana-sfetea.html", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "ilona-corfu", name: "Ilona Corfu", city: "Iași", type: "Facilitator", photo: "images/fac-ilona-corfu.jpg", profile: "member-ilona-corfu.html", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "ioana-tudor", name: "Ioana Tudor", city: "Brașov și București", type: "Facilitator", photo: "images/fac-ioana-tudor.jpg", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "saymara-ryon", name: "Saymara Ryon", city: "București", type: "Facilitator Avansat", photo: "images/fac-saymara-ryon.png", profile: "member-iulia-ioana-hm.html", bio: "Președinte Asociația TRE® România. Facilitator TRE® certificat în 2019. Trainer Institut Kutschera Austria, Master Coach Resonanz®, mentor în dezvoltare sustenabilă, autoare de cărți și cursuri. Fondatoare a metodei ReUnity MATRIX®.", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "larisa-anghel", name: "Larisa Anghel", city: "", type: "Facilitator", photo: "", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "lia-bolte", name: "Lia Bolte", city: "București", type: "Facilitator", photo: "images/fac-lia-bolte.jpg", profile: "member-lia-bolte.html", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "madalina-luca", name: "Mădălina Luca", city: "", type: "Facilitator", photo: "", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "madalina-bozeanu", name: "Mădălina Bozeanu", city: "București", type: "Facilitator", photo: "images/fac-madalina-bozeanu.jpg", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "maria-elena-marin", name: "Maria Elena Marin", city: "București", type: "Facilitator", photo: "images/fac-maria-elena-marin.jpg", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "monica-alexandrescu", name: "Monica Maria Alexandrescu", city: "Brașov", type: "Facilitator", photo: "images/fac-monica-alexandrescu.jpg", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "oana-alina-danila", name: "Oana-Alina Dănilă", city: "Mangalia, Vama Veche și Constanța", type: "Facilitator", photo: "images/fac-oana-alina-danila.jpg", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "oltita-raluca-rad", name: "Oltița Raluca Rad", city: "Brașov", type: "Facilitator Avansat", photo: "images/fac-oltita-raluca-rad.jpg", profile: "member-oltita-raluca-rad.html", bio: "", facebook: "", instagram: "", whatsapp: "" },
+  { slug: "simona-balcan", name: "Simona Balcan", city: "", type: "Facilitator", photo: "", profile: "", bio: "", facebook: "", instagram: "", whatsapp: "" }
+];
