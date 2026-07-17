@@ -1,4 +1,4 @@
-// Asociația TRE® România — shared facilitators dataset (real data scraped from treromania.org profiles)
+// Asociația TRE® România — shared facilitators dataset (real data + full-size photos scraped from treromania.org profiles)
 // Used by facilitatori.html (directory grid) and facilitator.html (profile page).
 window.TRE_FACILITATORS = [
   {
@@ -84,7 +84,7 @@ window.TRE_FACILITATORS = [
     "age": 41,
     "city": "Brașov",
     "type": "Facilitator",
-    "photo": "images/fac-andreea-baesu.jpg",
+    "photo": "images/fac-andreea-baesu.jpeg",
     "profile": "",
     "bio": "Somatic Life Coach\nCoach formator\nFacilitator procese corp Acces Bars și alte terapii alternative\n\nIubesc oamenii, am lucrat 20 de ani aproape de ei, îmi place să zic '' cu plexul solar la 30 de centimetri de chakra coroană a celui din fața mea'' ( ca și hair stylist). Și așa am ajuns să înțeleg oamenii, să-i simt și să-i iubesc. Suntem scântei Divine ce ne manifestăm puternicia, unicitatea și frumusețea, în această lume. Am călătorit în Africa și America Centrală și de Sud, tocmai pentru a aprofunda cunoașterea ancestrală a ființei noastre.\n\nÎntodeauna am studiat terapiile, iar în urmă cu 4 ani am început călătoria somatică, în care am ajuns să mă cunosc nu doar la nivel spiritual, ci și organic, biochimic, inteligent și evolutiv , aș spune. Să-mi identific conținutul emoțional și mental.\n\nÎn călătoria mea am descoperit TRE® ca o unealtă minunată, e ca un pod care face legătura între minte și corp, și-ți dă ocazia să eliberezi, din structurile conștiente și inconștiente, acele tensiuni, frecvențe care nu-ți mai sunt de folos sau care te țin captiv în rigiditate emoțională, mentală și fizică. O legătură organică, biochimică, naturală între ceea ce simt, fac și SUNT.\n\nNaturalețe, mișcare, autoîngrijire, blândețe, reglare, detensionare, prezență, sunt câteva din cuvintele care definesc călătoria mea TRE®. Și te invit să explorezi lumea, echilibrul și Iubirea.",
     "facebook": "https://www.facebook.com/Alchimizare",
@@ -114,7 +114,7 @@ window.TRE_FACILITATORS = [
     "age": "",
     "city": "Cluj-Napoca",
     "type": "Facilitator",
-    "photo": "images/fac-claudia-vancu.jpg",
+    "photo": "images/fac-claudia-vancu.jpeg",
     "profile": "",
     "bio": "Te susțin în propriul proces de transformare prin reglarea sistemului nervos, eliberarea stresului și reconectarea cu corpul, emoțiile și sinele tău autentic.",
     "facebook": "https://www.facebook.com/share/1J5cYnTz86",
@@ -144,7 +144,7 @@ window.TRE_FACILITATORS = [
     "age": "",
     "city": "București, Ilfov",
     "type": "Facilitator",
-    "photo": "images/fac-cristina-teasa.jpg",
+    "photo": "images/fac-cristina-teasa.jpeg",
     "profile": "member-cristina-teasa.html",
     "bio": "Facilitator TRE®\nPsiholog clinician, psihoterapeut integrativ în formare\nGrief Movement Guide",
     "facebook": "",
@@ -159,7 +159,7 @@ window.TRE_FACILITATORS = [
     "age": 34,
     "city": "București",
     "type": "Facilitator",
-    "photo": "images/fac-denisa-anghel.jpg",
+    "photo": "images/fac-denisa-anghel.jpeg",
     "profile": "",
     "bio": "Psihoterapeut, consilier pentru dezvoltare personala și Facilitator TRE® (Tension, Stress, Trauma Release)\nIubitoare de animale și de natura, m-am inspirat intodeauna din natura pentru a trai o viață echilibrata. Prin toate provocările vieții mele am navigat folosind în primul intuiția și apoi informația. TRE® a fost o descoperire majora în procesul meu de a mă simți în siguranță în corpul meu. Acolo unde toate celelalte instrumente au dat gres sau parțial gres, TRE® a completat cu succes sau a reușit.",
     "facebook": "https://www.facebook.com/denisa.anghel3",
@@ -399,7 +399,7 @@ window.TRE_FACILITATORS = [
     "age": 38,
     "city": "Mangalia, Vama Veche și Constanța",
     "type": "Facilitator",
-    "photo": "images/fac-oana-alina-danila.jpg",
+    "photo": "images/fac-oana-alina-danila.jpeg",
     "profile": "",
     "bio": "Sunt Oana-Alina Dănilă, Provider certificat TRE® și Instructor în Neurografică®, cu formare de bază în medicina veterinară și o misiune dedicată reglării sistemului nervos.",
     "facebook": "https://www.facebook.com/share/1C1EujH54t",

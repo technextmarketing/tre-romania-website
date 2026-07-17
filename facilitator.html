@@ -11,53 +11,59 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 <style>
-  .facp { max-width: 900px; margin: 0 auto; }
-  .facp-head { text-align: center; }
-  .facp-avatar {
-    width: 176px; height: 176px; border-radius: 50%; overflow: hidden;
-    margin: 0 auto 1.1rem; border: 1px solid var(--line);
-    background: var(--mist-deep); box-shadow: var(--shadow-soft);
+  .facp { max-width: 940px; margin: 0 auto; }
+  /* header — portrait + identity side by side (stacks on mobile) */
+  .facp-header {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: clamp(1.6rem, 4vw, 3rem);
+    align-items: center;
   }
-  .facp-avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .facp-avatar--ph { background: var(--mist); display: flex; align-items: center; justify-content: center; }
-  .facp-avatar--ph img { object-fit: contain; padding: 16%; opacity: 0.85; }
-  .facp-name { margin: 0.5rem 0 0.6rem; }
+  @media (max-width: 660px) { .facp-header { grid-template-columns: 1fr; justify-items: center; text-align: center; } }
+  .facp-photo {
+    display: block; width: 280px; max-width: 100%;
+    aspect-ratio: 1; border-radius: var(--radius); overflow: hidden;
+    border: 1px solid var(--line); background: var(--mist-deep); box-shadow: var(--shadow);
+  }
+  .facp-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .facp-photo--ph { background: var(--mist); display: flex; align-items: center; justify-content: center; }
+  .facp-photo--ph img { object-fit: contain; padding: 22%; opacity: 0.85; }
+
   .facp-badge {
     display: inline-block; font-family: var(--font-body); font-weight: 700;
     font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
-    padding: 0.3rem 0.7rem; border-radius: var(--radius-sm);
+    padding: 0.32rem 0.75rem; border-radius: var(--radius-sm);
     background: var(--mist-deep); color: var(--ink-soft); border: 1px solid var(--line);
   }
   .facp-badge--adv { background: #f6ecd9; color: #8a6408; border-color: #ecd9ad; }
-  .facp-socials { display: flex; justify-content: center; gap: 0.6rem; margin: 1rem 0 0; }
-  .facp-socials a {
-    width: 42px; height: 42px; border-radius: 50%; display: inline-flex;
-    align-items: center; justify-content: center; background: var(--mist);
-    color: var(--garnet); transition: background 0.2s, color 0.2s;
-  }
-  .facp-socials a:hover { background: var(--garnet); color: #fff; }
-  .facp-socials svg { width: 18px; height: 18px; fill: currentColor; }
+  .facp-name { margin: 0.7rem 0 0.55rem; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; }
+  .facp-meta { display: flex; flex-wrap: wrap; gap: 0.45rem 1.4rem; margin: 0 0 1.1rem; font-family: var(--font-body); color: var(--muted); font-size: 0.95rem; }
+  @media (max-width: 660px) { .facp-meta { justify-content: center; } }
+  .facp-meta span { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .facp-meta svg { width: 16px; height: 16px; flex: none; fill: none; stroke: var(--garnet); stroke-width: 1.7; }
 
-  .facp-about {
-    display: grid; grid-template-columns: 1fr 300px;
-    gap: clamp(1.6rem, 3.5vw, 2.8rem); margin-top: clamp(2rem, 4vw, 3rem); align-items: start;
+  /* highlighted social-platform buttons */
+  .facp-socials { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.3rem; }
+  @media (max-width: 660px) { .facp-socials { justify-content: center; } }
+  .facp-social {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font-body); font-weight: 600; font-size: 0.85rem;
+    padding: 0.52rem 1rem; border-radius: 999px; text-decoration: none; color: #fff;
+    box-shadow: var(--shadow-soft); transition: transform 0.15s ease, filter 0.15s ease;
   }
-  @media (max-width: 760px) { .facp-about { grid-template-columns: 1fr; } }
-  .facp-bio { font-size: 1.03rem; }
+  .facp-social svg { width: 17px; height: 17px; fill: currentColor; }
+  .facp-social:hover { transform: translateY(-2px); filter: brightness(1.06); color: #fff; }
+  .facp-social--fb { background: #1877F2; }
+  .facp-social--ig { background: linear-gradient(45deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888); }
+  .facp-social--wa { background: #25D366; }
+
+  .facp-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+  @media (max-width: 660px) { .facp-actions { justify-content: center; } }
+
+  .facp-bio-wrap { max-width: 780px; margin: clamp(1.6rem, 4vw, 2.4rem) 0 0; }
+  .facp-bio { font-size: 1.05rem; }
   .facp-bio p { margin-bottom: 1em; }
   .facp-note { color: var(--muted); }
-  .facp-side {
-    border: 1px solid var(--line); border-radius: var(--radius); background: var(--white);
-    box-shadow: var(--shadow-soft); padding: 1.4rem; position: sticky; top: calc(var(--header-h) + 18px);
-  }
-  @media (max-width: 760px) { .facp-side { position: static; } }
-  .facp-fields { list-style: none; padding: 0; margin: 0 0 1.2rem; display: grid; gap: 0.85rem; }
-  .facp-fields li { display: flex; flex-direction: column; gap: 0.2rem; border-bottom: 1px solid var(--line); padding-bottom: 0.8rem; }
-  .facp-fields li:last-child { border-bottom: 0; padding-bottom: 0; }
-  .facp-fields span { font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-  .facp-fields strong { font-family: var(--font-body); color: var(--ink); font-weight: 600; font-size: 0.98rem; }
-  .facp-actions { display: flex; flex-direction: column; gap: 0.6rem; }
-  .facp-actions .btn { width: 100%; }
 </style>
 </head>
 <body>
@@ -187,7 +193,9 @@
   var ICONS = {
     facebook: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.3H7.6V13h2.7v8h3.2z"/></svg>',
     instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4zm0-2.1a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6zm6.9-.3a1.3 1.3 0 1 1-2.6 0 1.3 1.3 0 0 1 2.6 0zM12 4.2c-2.6 0-2.9 0-4 .1-1 0-1.6.2-2 .4-.5.2-.9.4-1.2.8-.4.3-.6.7-.8 1.2-.2.4-.3 1-.4 2-.1 1.1-.1 1.4-.1 4s0 2.9.1 4c0 1 .2 1.6.4 2 .2.5.4.9.8 1.2.3.4.7.6 1.2.8.4.2 1 .3 2 .4 1.1.1 1.4.1 4 .1s2.9 0 4-.1c1 0 1.6-.2 2-.4.5-.2.9-.4 1.2-.8.4-.3.6-.7.8-1.2.2-.4.3-1 .4-2 .1-1.1.1-1.4.1-4s0-2.9-.1-4c0-1-.2-1.6-.4-2a3.1 3.1 0 0 0-.8-1.2 3.1 3.1 0 0 0-1.2-.8c-.4-.2-1-.3-2-.4-1.1-.1-1.4-.1-4-.1z"/></svg>',
-    whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.94 1.35-.5.05-1.13.24-3.66-.77-3.08-1.24-5.04-4.4-5.19-4.6-.15-.2-1.24-1.65-1.24-3.15s.79-2.24 1.07-2.54c.28-.3.61-.38.81-.38.2 0 .4 0 .58.01.19.01.44-.07.68.52.24.6.83 2.07.9 2.22.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12 1 2.07 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.72.81 2.01.96.3.15.5.22.57.35.07.13.07.75-.17 1.43z"/></svg>'
+    whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.94 1.35-.5.05-1.13.24-3.66-.77-3.08-1.24-5.04-4.4-5.19-4.6-.15-.2-1.24-1.65-1.24-3.15s.79-2.24 1.07-2.54c.28-.3.61-.38.81-.38.2 0 .4 0 .58.01.19.01.44-.07.68.52.24.6.83 2.07.9 2.22.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12 1 2.07 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.72.81 2.01.96.3.15.5.22.57.35.07.13.07.75-.17 1.43z"/></svg>',
+    pin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>',
+    cal: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="2"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="8" y1="3" x2="8" y2="6.5"/><line x1="16" y1="3" x2="16" y2="6.5"/></svg>'
   };
 
   if (!fac) {
@@ -203,21 +211,20 @@
   var isAdv = fac.type === "Facilitator Avansat";
 
   var socials = "";
-  if (fac.facebook) socials += '<a href="' + esc(fac.facebook) + '" target="_blank" rel="noopener" aria-label="Facebook">' + ICONS.facebook + "</a>";
-  if (fac.instagram) socials += '<a href="' + esc(fac.instagram) + '" target="_blank" rel="noopener" aria-label="Instagram">' + ICONS.instagram + "</a>";
-  if (fac.whatsapp) { var wa = waNumber(fac.whatsapp); if (wa) socials += '<a href="https://wa.me/' + wa + '" target="_blank" rel="noopener" aria-label="WhatsApp">' + ICONS.whatsapp + "</a>"; }
+  if (fac.facebook) socials += '<a class="facp-social facp-social--fb" href="' + esc(fac.facebook) + '" target="_blank" rel="noopener">' + ICONS.facebook + "<span>Facebook</span></a>";
+  if (fac.instagram) socials += '<a class="facp-social facp-social--ig" href="' + esc(fac.instagram) + '" target="_blank" rel="noopener">' + ICONS.instagram + "<span>Instagram</span></a>";
+  if (fac.whatsapp) { var wa = waNumber(fac.whatsapp); if (wa) socials += '<a class="facp-social facp-social--wa" href="https://wa.me/' + wa + '" target="_blank" rel="noopener">' + ICONS.whatsapp + "<span>WhatsApp</span></a>"; }
 
   var firstName = fac.name.split(" ")[0];
 
-  var actions = "";
-  if (fac.profile) actions += '<a class="btn" href="' + esc(fac.profile) + '">Vezi profilul complet →</a>';
-  actions += '<a class="btn ' + (fac.profile ? "btn--ghost" : "") + '" href="mailto:office@treromania.org?subject=' +
-    encodeURIComponent("Contact facilitator: " + fac.name) + '">Contactează prin asociație</a>';
+  var meta = "";
+  if (fac.city) meta += "<span>" + ICONS.pin + esc(fac.city) + "</span>";
+  if (fac.age) meta += "<span>" + ICONS.cal + esc(fac.age) + " ani</span>";
 
-  var fields = "";
-  if (fac.city) fields += "<li><span>Oraș</span><strong>" + esc(fac.city) + "</strong></li>";
-  if (fac.age) fields += "<li><span>Vârstă</span><strong>" + esc(fac.age) + " ani</strong></li>";
-  fields += "<li><span>Tip facilitator</span><strong>" + esc(fac.type) + "</strong></li>";
+  var actions = "";
+  if (fac.profile) actions += '<a class="btn btn--sm" href="' + esc(fac.profile) + '">Vezi profilul complet →</a>';
+  actions += '<a class="btn btn--sm ' + (fac.profile ? "btn--ghost" : "") + '" href="mailto:office@treromania.org?subject=' +
+    encodeURIComponent("Contact facilitator: " + fac.name) + '">Contactează prin asociație</a>';
 
   var bio = fac.bio
     ? bioHtml(fac.bio)
@@ -226,23 +233,21 @@
 
   root.innerHTML =
     '<div class="facp">' +
-      '<div class="facp-head">' +
-        '<span class="facp-avatar' + (hasPhoto ? "" : " facp-avatar--ph") + '">' +
+      '<div class="facp-header">' +
+        '<span class="facp-photo' + (hasPhoto ? "" : " facp-photo--ph") + '">' +
           '<img src="' + esc(src) + '" alt="' + (hasPhoto ? "Portret " + esc(fac.name) : "Asociația TRE® România") + '">' +
         "</span>" +
-        '<div><span class="facp-badge' + (isAdv ? " facp-badge--adv" : "") + '">' + esc(fac.type) + "</span></div>" +
-        '<h1 class="facp-name">' + esc(fac.name) + "</h1>" +
-        (socials ? '<div class="facp-socials">' + socials + "</div>" : "") +
-      "</div>" +
-      '<svg class="tremor" style="margin:1.6rem auto 0" viewBox="0 0 240 20" aria-hidden="true"><path d="M0 10 Q6 3 12 10 T24 10 T36 10 T48 10 T60 10 T72 10 T84 10 T96 10 T108 10 T120 10 T132 10 T144 10 T156 10 T168 10 T180 10 T192 10 T204 10 T216 10 T228 10 T240 10 T252 10 T264 10"/><path d="M0 10 Q6 17 12 10 T24 10 T36 10 T48 10 T60 10 T72 10 T84 10 T96 10 T108 10 T120 10 T132 10 T144 10 T156 10 T168 10 T180 10 T192 10 T204 10 T216 10 T228 10 T240 10 T252 10 T264 10"/></svg>' +
-      '<div class="facp-about">' +
-        '<div><h2>Despre ' + esc(firstName) + "</h2>" +
-          '<div class="facp-bio">' + bio + "</div></div>" +
-        '<aside class="facp-side">' +
-          '<ul class="facp-fields">' + fields + "</ul>" +
+        '<div class="facp-id">' +
+          '<span class="facp-badge' + (isAdv ? " facp-badge--adv" : "") + '">' + esc(fac.type) + "</span>" +
+          '<h1 class="facp-name">' + esc(fac.name) + "</h1>" +
+          (meta ? '<div class="facp-meta">' + meta + "</div>" : "") +
+          (socials ? '<div class="facp-socials">' + socials + "</div>" : "") +
           '<div class="facp-actions">' + actions + "</div>" +
-        "</aside>" +
+        "</div>" +
       "</div>" +
+      '<svg class="tremor" style="margin:2rem 0 0" viewBox="0 0 240 20" aria-hidden="true"><path d="M0 10 Q6 3 12 10 T24 10 T36 10 T48 10 T60 10 T72 10 T84 10 T96 10 T108 10 T120 10 T132 10 T144 10 T156 10 T168 10 T180 10 T192 10 T204 10 T216 10 T228 10 T240 10 T252 10 T264 10"/><path d="M0 10 Q6 17 12 10 T24 10 T36 10 T48 10 T60 10 T72 10 T84 10 T96 10 T108 10 T120 10 T132 10 T144 10 T156 10 T168 10 T180 10 T192 10 T204 10 T216 10 T228 10 T240 10 T252 10 T264 10"/></svg>' +
+      '<div class="facp-bio-wrap"><h2>Despre ' + esc(firstName) + "</h2>" +
+        '<div class="facp-bio">' + bio + "</div></div>" +
     "</div>";
 })();
 </script>
