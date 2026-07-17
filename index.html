@@ -136,37 +136,8 @@
         <h2>Evenimente</h2>
         <p class="lead">Workshopuri, sesiuni demo și programe somatice, în București și online.</p>
       </div>
-      <div class="grid grid--3 mt-2">
-        <article class="card event-card reveal">
-          <div class="event-card__badge"><strong>13</strong><span>mai 2026</span></div>
-          <div class="card__media"><img src="images/event-2026-04-Event-FB-landscape-2.jpg" alt="Sesiune demo TRE® online" loading="lazy"></div>
-          <div class="card__body">
-            <div class="event-meta"><span>19:00</span><span>Online, prin Zoom</span><span class="tag tag--free">Gratuit</span></div>
-            <h3>Sesiune demo TRE®</h3>
-            <p>Fă cunoștință cu TRE® într-o sesiune demonstrativă gratuită, ghidată de un facilitator certificat.</p>
-            <a class="card__link" href="evenimente.html#sesiune-demo-tre">Detalii</a>
-          </div>
-        </article>
-        <article class="card event-card reveal">
-          <div class="event-card__badge"><strong>22</strong><span>mai 2026</span></div>
-          <div class="card__media"><img src="images/event-2026-05-IMG_4569.jpg" alt="Workshop TRE® și puterea corpului — 22 mai" loading="lazy"></div>
-          <div class="card__body">
-            <div class="event-meta"><span>19:00–20:30</span><span>Dakini Retreat Urban, București</span><span class="tag tag--paid">Cu plată</span></div>
-            <h3>TRE® și puterea corpului: Eliberare și Conectare</h3>
-            <p>Grup de practică TRE® cu Alice Negoiță și Georgeta Apostol, în zona Piața Victoriei.</p>
-            <a class="card__link" href="evenimente.html#tre-si-puterea-corpului-eliberare-si-conectare-8">Detalii</a>
-          </div>
-        </article>
-        <article class="card event-card reveal">
-          <div class="event-card__badge"><strong>19</strong><span>iun 2026</span></div>
-          <div class="card__media"><img src="images/event-2026-06-IMG_49551.jpg" alt="Workshop TRE® și puterea corpului — 19 iunie" loading="lazy"></div>
-          <div class="card__body">
-            <div class="event-meta"><span>19:00–20:30</span><span>Dakini Retreat Urban, București</span><span class="tag tag--paid">Cu plată</span></div>
-            <h3>TRE® și puterea corpului: Eliberare și Conectare</h3>
-            <p>O nouă întâlnire a grupului de practică TRE® — eliberare, conectare și reglare a sistemului nervos.</p>
-            <a class="card__link" href="evenimente.html#tre-si-puterea-corpului-eliberare-si-conectare-9">Detalii</a>
-          </div>
-        </article>
+      <div class="grid grid--3 mt-2" id="home-events">
+        <p class="center" style="grid-column:1/-1;color:var(--muted);padding:1rem 0">Se încarcă evenimentele viitoare…</p>
       </div>
       <div class="center mt-3 reveal"><a class="btn btn--ghost" href="evenimente.html">Toate evenimentele</a></div>
     </div>
@@ -367,5 +338,90 @@
 </footer>
 
 <script src="assets/js/main.js"></script>
+<script>
+/* Homepage — upcoming events list with a live countdown per card.
+   Single source of truth: evenimente.html. Parses each event's "Când"
+   date, keeps only upcoming ones, sorts soonest-first, shows up to 3. */
+(function () {
+  "use strict";
+  var host = document.getElementById("home-events");
+  if (!host) return;
+
+  var MONTHS_RO = {
+    ianuarie: 0, februarie: 1, martie: 2, aprilie: 3, mai: 4, iunie: 5,
+    iulie: 6, august: 7, septembrie: 8, octombrie: 9, noiembrie: 10, decembrie: 11
+  };
+  function esc(s) { return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function txt(el, sel) { var n = el && el.querySelector(sel); return n ? n.textContent.trim() : ""; }
+  function parseStart(str) {
+    if (!str) return null;
+    var m = str.match(/(\d{1,2})\s+([a-zA-Zăâîșț]+)\s+(\d{4})(?:,\s*(\d{1,2}):(\d{2}))?/);
+    if (!m) return null;
+    var mon = MONTHS_RO[m[2].toLowerCase()];
+    if (mon === undefined) return null;
+    return new Date(+m[3], mon, +m[1], m[4] ? +m[4] : 19, m[5] ? +m[5] : 0, 0);
+  }
+
+  fetch("evenimente.html")
+    .then(function (r) { if (!r.ok) throw new Error("http"); return r.text(); })
+    .then(function (html) {
+      var doc = new DOMParser().parseFromString(html, "text/html");
+      var now = Date.now();
+      var items = [].slice.call(doc.querySelectorAll(".ev-card")).map(function (a) {
+        var full = a.querySelector(".ev-card__full .modal__pad");
+        var cand = "";
+        if (full) {
+          var lis = full.querySelectorAll(".event-detl li");
+          for (var i = 0; i < lis.length; i++) {
+            if (txt(lis[i], "strong") === "Când") { cand = txt(lis[i], "span"); break; }
+          }
+        }
+        return { el: a, start: parseStart(cand) };
+      }).filter(function (o) { return o.start && o.start.getTime() > now; });
+
+      items.sort(function (x, y) { return x.start - y.start; });
+      var picks = items.slice(0, 3);
+
+      if (!picks.length) {
+        host.innerHTML = '<p class="center" style="grid-column:1/-1;color:var(--muted);padding:1rem 0">' +
+          'Nu există evenimente programate momentan. Scrie-ne la <a href="mailto:office@treromania.org">office@treromania.org</a> pentru următoarele date.</p>';
+        return;
+      }
+
+      host.innerHTML = picks.map(function (o) {
+        var a = o.el;
+        var img = a.querySelector(".ev-card__media img");
+        var day = txt(a, ".ev-card__date strong");
+        var mon = txt(a, ".ev-card__date span");
+        var year = txt(a, ".ev-card__year");
+        var title = txt(a, ".ev-card__body h3");
+        var loc = txt(a, ".ev-card__loc");
+        var teaser = txt(a, ".ev-card__teaser");
+        var tags = a.querySelector(".ev-card__body .ev-card__tags");
+        var iso = o.start.getFullYear() + "-" + ("0" + (o.start.getMonth() + 1)).slice(-2) + "-" +
+          ("0" + o.start.getDate()).slice(-2) + "T" + ("0" + o.start.getHours()).slice(-2) + ":" + ("0" + o.start.getMinutes()).slice(-2);
+        return '<article class="card event-card reveal">' +
+          '<div class="event-card__badge"><strong>' + esc(day) + "</strong><span>" + esc(mon) + " " + esc(year) + "</span></div>" +
+          '<div class="card__media">' + (img ? '<img src="' + esc(img.getAttribute("src")) + '" alt="' + esc(img.getAttribute("alt")) + '" loading="lazy">' : "") + "</div>" +
+          '<div class="card__body">' +
+            (tags ? '<div class="ev-card__tags">' + tags.innerHTML + "</div>" : "") +
+            "<h3>" + esc(title) + "</h3>" +
+            (loc ? '<p class="ev-card__loc">' + esc(loc) + "</p>" : "") +
+            (teaser ? "<p>" + esc(teaser) + "</p>" : "") +
+            '<div class="event-countdown" data-countdown="' + iso + '"><span class="event-countdown__label">Începe în</span><strong class="event-countdown__val" data-cd>—</strong></div>' +
+            '<a class="card__link" href="eveniment.html?e=' + encodeURIComponent(a.id) + '">Detalii</a>' +
+          "</div></article>";
+      }).join("");
+
+      if (window.treCountdown) {
+        [].slice.call(host.querySelectorAll("[data-countdown]")).forEach(window.treCountdown);
+      }
+    })
+    .catch(function () {
+      host.innerHTML = '<p class="center" style="grid-column:1/-1;color:var(--muted);padding:1rem 0">' +
+        'Vezi toate evenimentele noastre pe <a href="evenimente.html">pagina de evenimente</a>.</p>';
+    });
+})();
+</script>
 </body>
 </html>

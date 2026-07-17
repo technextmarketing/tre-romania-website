@@ -34,6 +34,18 @@
       if (b) b.setAttribute("aria-expanded", "false");
     });
   });
+  // Hovering a group must close any *other* click-opened group, so a
+  // click-opened menu + a hovered menu can never show at the same time.
+  document.querySelectorAll(".nav__group").forEach(function (group) {
+    group.addEventListener("mouseenter", function () {
+      document.querySelectorAll(".nav__group.open").forEach(function (g) {
+        if (g === group) return;
+        g.classList.remove("open");
+        var b = g.querySelector("button");
+        if (b) b.setAttribute("aria-expanded", "false");
+      });
+    });
+  });
 
   // Mark current page in nav
   var here = location.pathname.split("/").pop() || "index.html";
@@ -41,6 +53,27 @@
     var target = a.getAttribute("href").split("#")[0];
     if (target === here) a.setAttribute("aria-current", "page");
   });
+
+  // Countdown timer — start a live "Xz Yh Zm Ws" ticker on an element with
+  // data-countdown="YYYY-MM-DDTHH:MM" (written into its [data-cd] child).
+  // Exposed globally so dynamically-injected cards can start their own.
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+  window.treCountdown = function (el) {
+    var target = new Date(el.getAttribute("data-countdown")).getTime();
+    if (isNaN(target)) { el.style.display = "none"; return; }
+    function render() {
+      var out = el.querySelector("[data-cd]") || el;
+      var diff = target - Date.now();
+      if (diff <= 0) { el.classList.add("is-live"); out.textContent = "Are loc acum"; return false; }
+      var s = Math.floor(diff / 1000);
+      out.textContent = Math.floor(s / 86400) + "z " + pad2(Math.floor((s % 86400) / 3600)) +
+        "h " + pad2(Math.floor((s % 3600) / 60)) + "m " + pad2(s % 60) + "s";
+      return true;
+    }
+    render();
+    var iv = setInterval(function () { if (!render()) clearInterval(iv); }, 1000);
+  };
+  [].slice.call(document.querySelectorAll("[data-countdown]")).forEach(window.treCountdown);
 
   // Reveal on scroll
   if ("IntersectionObserver" in window) {

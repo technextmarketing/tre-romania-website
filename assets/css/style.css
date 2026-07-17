@@ -725,6 +725,24 @@ figure img { border-radius: var(--radius); margin: 0 auto; }
 }
 .event-card__badge strong { display: block; font-size: 1.3rem; color: var(--garnet); }
 .event-card__badge span { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+/* per-card countdown (homepage upcoming events) */
+.event-countdown {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin: 0.2rem 0 1rem;
+  padding: 0.55rem 0.8rem;
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--garnet);
+  border-radius: var(--radius-sm);
+}
+.event-countdown__label { font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.event-countdown__val { font-family: var(--font-body); font-weight: 700; font-size: 0.95rem; color: var(--garnet); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.event-countdown.is-live { border-left-color: #3c6b2f; }
+.event-countdown.is-live .event-countdown__val { color: #3c6b2f; }
 .event-meta {
   display: flex;
   flex-wrap: wrap;
