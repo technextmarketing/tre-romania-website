@@ -222,6 +222,7 @@
 
   var fields = "";
   if (fac.city) fields += "<li><span>Oraș</span><strong>" + esc(fac.city) + "</strong></li>";
+  if (fac.age) fields += "<li><span>Vârstă</span><strong>" + esc(fac.age) + " ani</strong></li>";
   fields += "<li><span>Tip facilitator</span><strong>" + esc(fac.type) + "</strong></li>";
 
   var bio = fac.bio

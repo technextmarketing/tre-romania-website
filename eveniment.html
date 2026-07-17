@@ -125,6 +125,7 @@
 </footer>
 
 <script src="assets/js/main.js"></script>
+<script src="assets/js/facilitators-data.js"></script>
 <script>
 /* Event detail renderer — reads ?e=<id>, pulls that event's data from
    evenimente.html (single source of truth) and renders a full page. */
@@ -137,6 +138,10 @@
     program: "Program",
     special: "Conferință / eveniment special"
   };
+  var MONTHS_RO = {
+    ianuarie: 0, februarie: 1, martie: 2, aprilie: 3, mai: 4, iunie: 5,
+    iulie: 6, august: 7, septembrie: 8, octombrie: 9, noiembrie: 10, decembrie: 11
+  };
   var root = document.getElementById("evt-root");
   var params = new URLSearchParams(location.search);
   var id = params.get("e");
@@ -145,6 +150,48 @@
     return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   function txt(el, sel) { var n = el && el.querySelector(sel); return n ? n.textContent.trim() : ""; }
+
+  // Parses the "Când" detail text, e.g. "19 iunie 2026, 19:00-20:30" -> Date.
+  // Returns null when the text doesn't match a recognisable date (safer
+  // than guessing — an unknown date is treated as "not upcoming").
+  function parseEventStart(str) {
+    if (!str) return null;
+    var m = str.match(/(\d{1,2})\s+([a-zA-Zăâîșț]+)\s+(\d{4})(?:,\s*(\d{1,2}):(\d{2}))?/);
+    if (!m) return null;
+    var mon = MONTHS_RO[m[2].toLowerCase()];
+    if (mon === undefined) return null;
+    var hh = m[4] ? parseInt(m[4], 10) : 19;
+    var mm = m[5] ? parseInt(m[5], 10) : 0;
+    return new Date(parseInt(m[3], 10), mon, parseInt(m[1], 10), hh, mm, 0);
+  }
+
+  function norm(s) {
+    return (s || "").toString().normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+  }
+
+  // Best-effort: find which of the site's known facilitators are named as
+  // this event's organiser/host, either via an explicit "Organizator" detail
+  // row or by name-matching the full description text. Returns [] (renders
+  // nothing) rather than guessing when no confident match exists.
+  function findFacilitators(descText, organizerField) {
+    var list = window.TRE_FACILITATORS || [];
+    if (!list.length) return [];
+    var found = [];
+    var seen = {};
+    function add(fac) { if (fac && !seen[fac.slug]) { seen[fac.slug] = true; found.push(fac); } }
+    if (organizerField) {
+      var wanted = norm(organizerField);
+      list.forEach(function (f) { if (wanted.indexOf(norm(f.name)) !== -1) add(f); });
+    }
+    var hay = norm(descText);
+    if (hay) {
+      list.forEach(function (f) {
+        if (found.length >= 3) return;
+        if (hay.indexOf(norm(f.name)) !== -1) add(f);
+      });
+    }
+    return found.slice(0, 3);
+  }
 
   function notFound() {
     return '<section class="section"><div class="container center">' +
@@ -216,9 +263,15 @@
     if (!factPrice || factPrice === "Nespecificat") factPrice = "La cerere";
     var typeLabel = TYPE_LABELS[type] || "Eveniment";
 
+    var startDate = parseEventStart(factDate);
+    var isUpcoming = !!(startDate && startDate.getTime() > Date.now());
+
     document.title = title + " | Asociația TRE® România";
 
-    var badges = tagsHTML ? '<div class="evt-badges">' + tagsHTML + "</div>" : "";
+    var statusTag = isUpcoming
+      ? '<span class="tag tag--free">Eveniment viitor</span>'
+      : '<span class="tag tag--past">Eveniment încheiat</span>';
+    var badges = '<div class="evt-badges">' + tagsHTML + statusTag + "</div>";
 
     var html =
       '<section class="evt-hero">' +
@@ -229,7 +282,8 @@
           "<h1>" + esc(title) + "</h1>" +
           (loc ? '<p class="evt-hero__loc">' + esc(loc) + "</p>" : "") +
           '<div class="evt-hero__actions">' +
-            '<a class="btn btn--light" href="#inscriere">' + esc(regText) + "</a>" +
+            '<a class="btn btn--light" href="#inscriere">' + (isUpcoming ? "Rezervă-ți locul" : "Vezi detalii") + "</a>" +
+            '<a class="btn btn--ghost-light" href="mailto:office@treromania.org">Scrie-ne</a>' +
             '<a class="btn btn--ghost-light" href="evenimente.html">Toate evenimentele</a>' +
           "</div>" +
         "</div></div>" +
@@ -242,6 +296,8 @@
         '<div><span>Tip</span><strong>' + esc(typeLabel) + "</strong></div>" +
       "</div></div></section>" +
 
+      (isUpcoming ? countdownHTML(title, factLoc, startDate) : "") +
+
       '<section class="section"><div class="container"><div class="evt-layout">' +
         '<div class="evt-main">' +
           '<span class="eyebrow">Despre eveniment</span>' +
@@ -250,26 +306,116 @@
           '<div class="evt-body">' + (descHTML || "<p>Detaliile acestui eveniment sunt disponibile prin asociație.</p>") + "</div>" +
           (detlHTML ? '<h3 class="evt-detl-title">Detalii</h3>' + detlHTML : "") +
         "</div>" +
-        '<aside class="evt-sidebar">' +
-          '<div class="evt-reg" id="inscriere">' +
-            '<div class="evt-reg__head"><h3>Rezervă-ți locul</h3><p>' + esc(factDate) + "</p></div>" +
-            '<div class="evt-reg__body">' +
-              '<ul class="evt-reg__facts">' +
-                '<li><span>Data</span><strong>' + esc(factDate) + "</strong></li>" +
-                '<li><span>Locație</span><strong>' + esc(factLoc) + "</strong></li>" +
-                '<li><span>Preț</span><strong>' + esc(factPrice) + "</strong></li>" +
-              "</ul>" +
-              '<a class="btn btn--block" href="' + esc(regHref) + '"' + regTarget + ">" + esc(regText) + "</a>" +
-              '<p class="evt-reg__alt">' + (isMail ? "Scrie-ne direct pentru înscriere sau întrebări." : "Ai întrebări? Scrie-ne la ") +
-                (isMail ? "" : '<a href="mailto:office@treromania.org">office@treromania.org</a>') + "</p>" +
-            "</div>" +
-          "</div>" +
-        "</aside>" +
+        '<aside class="evt-sidebar">' + (isUpcoming ? sidebarUpcoming(factDate, factLoc, factPrice, regHref, regText, regTarget, isMail) : sidebarPast(factDate, factLoc, factPrice)) + "</aside>" +
       "</div></div></section>";
 
     root.innerHTML = html;
+    renderFacilitators(descHTML, d["Organizator"]);
     renderRelated(doc, art);
+    if (isUpcoming) startCountdown(startDate);
     if (window.__treReveal) window.__treReveal();
+  }
+
+  function sidebarUpcoming(factDate, factLoc, factPrice, regHref, regText, regTarget, isMail) {
+    return '<div class="evt-reg" id="inscriere">' +
+      '<div class="evt-reg__head"><h3>Rezervă-ți locul</h3><p>' + esc(factDate) + "</p></div>" +
+      '<div class="evt-reg__body">' +
+        '<ul class="evt-reg__facts">' +
+          '<li><span>Data</span><strong>' + esc(factDate) + "</strong></li>" +
+          '<li><span>Locație</span><strong>' + esc(factLoc) + "</strong></li>" +
+          '<li><span>Preț</span><strong>' + esc(factPrice) + "</strong></li>" +
+        "</ul>" +
+        '<a class="btn btn--block" href="' + esc(regHref) + '"' + regTarget + ">" + esc(regText) + "</a>" +
+        '<p class="evt-reg__alt">' + (isMail ? "Scrie-ne direct pentru înscriere sau întrebări." : "Ai întrebări? Scrie-ne la ") +
+          (isMail ? "" : '<a href="mailto:office@treromania.org">office@treromania.org</a>') + "</p>" +
+      "</div>" +
+    "</div>";
+  }
+
+  function sidebarPast(factDate, factLoc, factPrice) {
+    return '<div class="evt-reg" id="inscriere">' +
+      '<div class="evt-reg__head evt-reg__head--past"><h3>Acest eveniment s-a încheiat</h3><p>A avut loc pe ' + esc(factDate) + "</p></div>" +
+      '<div class="evt-reg__body">' +
+        '<ul class="evt-reg__facts">' +
+          '<li><span>Data</span><strong>' + esc(factDate) + "</strong></li>" +
+          '<li><span>Locație</span><strong>' + esc(factLoc) + "</strong></li>" +
+          '<li><span>Preț</span><strong>' + esc(factPrice) + "</strong></li>" +
+        "</ul>" +
+        '<a class="btn btn--block" href="evenimente.html">Vezi evenimentele viitoare</a>' +
+        '<p class="evt-reg__alt">Vrei să afli despre următoarea ediție? Scrie-ne la <a href="mailto:office@treromania.org">office@treromania.org</a></p>' +
+      "</div>" +
+    "</div>";
+  }
+
+  function countdownHTML(title, factLoc, startDate) {
+    return '<section class="evt-countdown"><div class="container evt-countdown__inner">' +
+      '<div class="evt-countdown__label">' +
+        '<span class="eyebrow" style="color:var(--ochre)">Evenimentul începe în</span>' +
+        "<h3>" + esc(title) + (factLoc ? " · " + esc(factLoc) : "") + "</h3>" +
+        '<a class="btn btn--sm" href="#inscriere">Rezervă-ți locul</a>' +
+      "</div>" +
+      '<div class="evt-countdown__timer" id="evt-timer" data-target="' + startDate.getTime() + '">' +
+        '<div class="evt-countdown__unit"><strong id="ct-d">00</strong><span>Zile</span></div>' +
+        '<div class="evt-countdown__unit"><strong id="ct-h">00</strong><span>Ore</span></div>' +
+        '<div class="evt-countdown__unit"><strong id="ct-m">00</strong><span>Min</span></div>' +
+        '<div class="evt-countdown__unit"><strong id="ct-s">00</strong><span>Sec</span></div>' +
+      "</div>" +
+    "</div></section>";
+  }
+
+  function startCountdown(target) {
+    var elD = document.getElementById("ct-d"), elH = document.getElementById("ct-h"),
+        elM = document.getElementById("ct-m"), elS = document.getElementById("ct-s");
+    var timer = document.getElementById("evt-timer");
+    if (!elD || !elH || !elM || !elS) return;
+    function pad(n) { return (n < 10 ? "0" : "") + n; }
+    function tick() {
+      var diff = target.getTime() - Date.now();
+      if (diff <= 0) {
+        clearInterval(intervalId);
+        if (timer) timer.outerHTML = '<p class="evt-countdown__started">Evenimentul a început!</p>';
+        return;
+      }
+      var s = Math.floor(diff / 1000);
+      elD.textContent = pad(Math.floor(s / 86400));
+      elH.textContent = pad(Math.floor((s % 86400) / 3600));
+      elM.textContent = pad(Math.floor((s % 3600) / 60));
+      elS.textContent = pad(s % 60);
+    }
+    tick();
+    var intervalId = setInterval(tick, 1000);
+  }
+
+  function facilitatorCard(f) {
+    var hasPhoto = !!f.photo;
+    var src = hasPhoto ? f.photo : "images/logo-badge.png";
+    var bioLine = f.bio ? f.bio.split(/\n+/)[0] : "";
+    return '<div class="evt-fac-card">' +
+      '<span class="evt-fac-card__avatar' + (hasPhoto ? "" : " evt-fac-card__avatar--ph") + '">' +
+        '<img src="' + esc(src) + '" alt="' + esc(f.name) + '" loading="lazy">' +
+      "</span>" +
+      '<div class="evt-fac-card__body">' +
+        "<h4>" + esc(f.name) + "</h4>" +
+        '<span class="evt-fac-card__role">' + esc(f.type) + (f.city ? " · " + esc(f.city) : "") + "</span>" +
+        (bioLine ? "<p>" + esc(bioLine) + "</p>" : "") +
+        '<a class="card__link" href="facilitator.html?f=' + encodeURIComponent(f.slug) + '">Vezi profilul complet</a>' +
+      "</div>" +
+    "</div>";
+  }
+
+  function renderFacilitators(descHTML, organizerField) {
+    var plain = descHTML.replace(/<[^>]+>/g, " ");
+    var facs = findFacilitators(plain, organizerField);
+    if (!facs.length) return;
+    var sec = document.createElement("section");
+    sec.className = "section section--mist";
+    sec.innerHTML = '<div class="container">' +
+      '<span class="eyebrow">' + (facs.length > 1 ? "Facilitatori" : "Facilitator") + '</span>' +
+      "<h2>" + (facs.length > 1 ? "Cine facilitează acest eveniment" : "Cine facilitează acest eveniment") + "</h2>" +
+      '<svg class="tremor" viewBox="0 0 240 20" aria-hidden="true"><path d="M0 10 Q6 3 12 10 T24 10 T36 10 T48 10 T60 10 T72 10 T84 10 T96 10 T108 10 T120 10 T132 10 T144 10 T156 10 T168 10 T180 10 T192 10 T204 10 T216 10 T228 10 T240 10 T252 10 T264 10"/></svg>' +
+      '<div class="evt-fac-grid mt-2">' + facs.map(facilitatorCard).join("") + "</div>" +
+      "</div>";
+    root.appendChild(sec);
   }
 
   function relatedCard(a) {
