@@ -524,16 +524,16 @@ blockquote {
 }
 .split__media img { border-radius: var(--radius); box-shadow: var(--shadow); width: 100%; }
 .split--flip .split__media { order: 2; }
-/* image-emphasis variant — larger media column, for short promo blocks
-   (balanced 1fr/1fr stays the default so text-heavy splits don't cramp).
-   Top-align so a wide/short poster sits with the heading instead of
-   floating in the middle of a taller text column. */
-.split--media { grid-template-columns: 1.3fr 0.82fr; align-items: start; }
-.split--media.split--flip { grid-template-columns: 0.82fr 1.3fr; }
-.split--media .split__media { position: sticky; top: calc(var(--header-h) + 20px); }
-@media (max-width: 860px) { .split--media .split__media { position: static; } }
+/* image-emphasis variant — STACKED promo: full-width (big) image on top,
+   title + description + actions below. Used for short promo blocks
+   (homepage training/community promos, formari featured card); the
+   balanced side-by-side 1fr/1fr stays the default for text-heavy splits. */
+.split--media,
+.split--media.split--flip { grid-template-columns: 1fr; gap: clamp(1.5rem, 3vw, 2.2rem); align-items: start; }
+.split--media .split__media { order: -1; } /* image always first, even on --flip */
+.split--media > div:not(.split__media) { max-width: 820px; }
 @media (max-width: 860px) {
-  .split, .split--media, .split--media.split--flip { grid-template-columns: 1fr; }
+  .split { grid-template-columns: 1fr; }
   .split--flip .split__media { order: 0; }
 }
 
