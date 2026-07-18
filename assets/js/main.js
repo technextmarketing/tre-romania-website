@@ -34,15 +34,21 @@
       if (b) b.setAttribute("aria-expanded", "false");
     });
   });
-  // Hovering a group must close any *other* click-opened group, so a
-  // click-opened menu + a hovered menu can never show at the same time.
+  // Hovering a group must fully close every *other* group, so two menus can
+  // never show at once. A click both adds .open AND focuses the button, and
+  // the CSS opens a menu on .open OR :focus-within — so we must remove .open
+  // AND blur the focused element inside the other group (else :focus-within
+  // keeps its menu open while the hovered one also shows).
   document.querySelectorAll(".nav__group").forEach(function (group) {
     group.addEventListener("mouseenter", function () {
-      document.querySelectorAll(".nav__group.open").forEach(function (g) {
+      document.querySelectorAll(".nav__group").forEach(function (g) {
         if (g === group) return;
         g.classList.remove("open");
         var b = g.querySelector("button");
         if (b) b.setAttribute("aria-expanded", "false");
+        if (g.contains(document.activeElement) && document.activeElement.blur) {
+          document.activeElement.blur();
+        }
       });
     });
   });
